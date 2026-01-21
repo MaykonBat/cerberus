@@ -1,0 +1,30 @@
+{
+  "name": "engine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx ts-node -r tsconfig-paths/register ./src/app",
+    "seeder": "npx ts-node -r tsconfig-paths/register ./src/seeders/0_index",
+    "encrypt": "npx ts-node -r tsconfig-paths/register ./src/utils/encrypt.ts <message here>",
+    "sign": "npx ts-node -r tsconfig-paths/register ./src/utils/jwt.ts <private key here>"
+  },
+  "keywords": [],
+  "author": "LuizTools",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.11.0",
+    "dotenv": "^17.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "nodemailer": "^7.0.5",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/nodemailer": "^6.4.17",
+    "@types/ws": "^8.18.1",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
+  }
+}

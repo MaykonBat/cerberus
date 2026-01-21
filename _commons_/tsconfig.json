@@ -1,0 +1,21 @@
+{
+  "include": [
+    "**/*",
+    "services/Uniswap.json",
+    "services/ERC20.json"
+  ],
+  "compilerOptions": {
+    "target": "ES2022", 
+    "module": "NodeNext", 
+    "moduleResolution": "nodenext", 
+    "resolveJsonModule": true, 
+    "outDir": "./dist/", 
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true, 
+    "strict": true, 
+    "skipLibCheck": true, 
+    "erasableSyntaxOnly": false,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  }
+}
