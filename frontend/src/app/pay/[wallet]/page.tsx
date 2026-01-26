@@ -5,10 +5,10 @@ import { useRouter, useParams } from "next/navigation";
 
 import Navbar from "@/components/Navbars/AuthNavbar.js";
 import FooterSmall from "@/components/Footers/FooterSmall.js";
-import {User} from "commons/models/user";
-import {Plan} from "commons/models/plan";
-import { Status } from "commons/models/status";
-import { ChainId } from "commons/models/chainId";
+import {User} from "commons";
+import {Plan} from "commons";
+import {Status} from "commons";
+import {ChainId} from "commons";
 
 
 export default function Activate() {
