@@ -1,5 +1,7 @@
+"use client"
+
 import React from "react";
-import Chart from "chart.js";
+import Chart from "chart.js/auto";
 
 export default function CardBarChart() {
   React.useEffect(() => {
@@ -97,6 +99,10 @@ export default function CardBarChart() {
     };
     let ctx = document.getElementById("bar-chart").getContext("2d");
     window.myBar = new Chart(ctx, config);
+
+    return () => {
+      window.myBar.destroy()
+    }
   }, []);
   return (
     <>

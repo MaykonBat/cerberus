@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbars/AuthNavbar.js";
 import FooterSmall from "@/components/Footers/FooterSmall.js";
 
+import {getWallet} from "@/services/Web3Service";
+
 type NewUser = {
     name: string;
     email: string;
@@ -26,7 +28,7 @@ export default function Register() {
     setUser((prevState: any) => ({ ...prevState, [evt.target.id]: evt.target.value }));
   }
 
-  function btnSaveClick() {
+  async function register(){
     setMessage("Saving... wait...");
 
     if(!user.checkTos) {
@@ -34,11 +36,25 @@ export default function Register() {
       return;
     }
 
-    //TODO: conectar na Metamask
+    let wallet = localStorage.getItem("wallet");
+    if(!wallet){
+      try{
+        wallet = await getWallet();
+      } catch (err: any) {
+        setMessage(err.message);
+        return;
+      }
+    }
+
+    console.log(wallet);
 
     //TODO: cadastrar via backend
 
-    push("/register/activate");
+    push("/register/activate?wallet=" + wallet);
+  }
+
+  function btnSaveClick() {
+    register();
   }
 
   return (

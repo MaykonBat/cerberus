@@ -1,8 +1,8 @@
 {
   "include": [
     "**/*",
-    "services/Uniswap.json",
-    "services/ERC20.json"
+    "src/services/Uniswap.json",
+    "src/services/ERC20.json"
   ],
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */

@@ -10,12 +10,21 @@ import {Plan} from "commons";
 import {Status} from "commons";
 import {ChainId} from "commons";
 
+import { startPayment } from "@/services/Web3Service";
+import { ethers } from "ethers";
 
 export default function Activate() {
   const { push } = useRouter();
 
   const [user, setUser] = useState<User>({} as User);
-  const [plan, setPlan] = useState<Plan>({} as Plan);
+  const [plan, setPlan] = useState<Plan>({
+      name: "Gold",
+      id: "Gold",
+      tokenSymbol: "WETH",
+      tokenAddress: "0xb16F35c0Ae2912430DAc15764477E179D9B9EbEa",
+      price: ethers.parseEther("0.001").toString(),
+      maxAutomations: 10,
+  });
   const [message, setMessage] = useState<string>("");
 
   const params = useParams();
@@ -35,7 +44,13 @@ export default function Activate() {
   //const wallet: string = typeof params.wallet === "string" ? params.wallet : params.wallet[0];
 
   useEffect(() => {
-    // carregar usuário do banco com a wallet
+    setMessage("Loading payment info...");
+
+    //TODO: obter JWT
+
+    //TODO: validar info de pgto
+
+    //TODO: carregar usuário do banco com a wallet
     setUser({
       name: "Maykon",
       email: "m.bluealien@gmail.com",
@@ -46,20 +61,19 @@ export default function Activate() {
       activationCode: "123456",
       activationDate: new Date()
     });
-
-    //carregar dados do plano
-    setPlan({
-      name: "Gold",
-      id: "Gold",
-      tokenSymbol: "WETH",
-      tokenAddress: "0xb16F35c0Ae2912430DAc15764477E179D9B9EbEa",
-      price: "0.001",
-      maxAutomations: 10,
-    });
   }, [wallet]);
 
   function btnPayClick() {
-    push("/dashboard");
+    setMessage("Please, authorize our recurring charges (monthly, 1 year authorization). Cancel anytime.");
+    
+    startPayment(plan)
+      .then(result => {
+        setMessage("Payment authorized. Starting the 1st month charge... wait...");
+        //TODO: chamar função de pagar do backend
+        return Promise.resolve();
+      })
+      .then(result => push("/dashboard"))
+      .catch(err => setMessage(err.response ? err.response.data : err.message));
   }
 
   return (
@@ -122,7 +136,7 @@ export default function Activate() {
                       <div className="mt-3">
                         This plan costs{" "}
                         <strong>
-                          {plan.tokenSymbol} {plan.price}/mo
+                          {plan.tokenSymbol} {`${ethers.formatEther(plan.price)}`}/mo
                         </strong>{" "}
                         and gives you full access to our platform and{" "}
                         <strong>{plan.maxAutomations}</strong> automations.

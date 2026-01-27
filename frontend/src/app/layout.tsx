@@ -32,6 +32,7 @@ export default function RootLayout({
         className="text-blueGray-700 antialiased"
       >
         {children}
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
       </body>
     </html>
   );

@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/components/Sidebar/Sidebar.js",
+    "src/components/Sidebar/Sidebar.tsx",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

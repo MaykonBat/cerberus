@@ -5,3 +5,4 @@ export * from "./models/pool";
 export * from "./models/status";
 export * from "./models/token";
 export * from "./models/user";
+export * from "./models/jwt";

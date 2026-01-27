@@ -1,22 +1,39 @@
 "use client";
 
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";
 import Navbar from "@/components/Navbars/AuthNavbar.js";
 import FooterSmall from "@/components/Footers/FooterSmall.js";
 
-export default function Login() {
+import { doLogin } from "@/services/Web3Service";
+import { Status } from "../../../packages/commons/dist/models/status";
 
+export default function Login() {
   const { push } = useRouter();
 
   const [message, setMessage] = useState<string>("");
 
-  function btnLoginClick() {
-    push("/register");
-  }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) push("/dashboard");
+  }, []);
 
+  function btnLoginClick() {
+    setMessage("Logging In... wait...");
+    doLogin()
+      .then((jwt) => {
+        if (!jwt) return;
+
+        if (jwt.status === Status.ACTIVE) push("/dashboard");
+        else if (jwt.status === Status.BLOCKED) push("/pay/" + jwt.address);
+        else if (jwt.status === Status.NEW) push("/register/activate?wallet=" + jwt.address);
+        else if (jwt.status === Status.BANNED) push("/");
+        else push("/register");
+      })
+      .catch((err) => setMessage(err.message));
+  }
 
   return (
     <>
@@ -47,13 +64,9 @@ export default function Login() {
                         onClick={btnLoginClick}
                       >
                         <img src="/img/metamask.svg" width={64} />
-                        <span>
-                        Click to Connect
-                        </span>
+                        <span>Click to Connect</span>
                       </button>
-                      <div>
-                        {message}
-                      </div>
+                      <div>{message}</div>
                     </div>
                   </div>
                 </div>
