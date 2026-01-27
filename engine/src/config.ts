@@ -1,5 +1,5 @@
-import { Exchange } from "../../_commons_/models/exchange";
-import { ChainId } from "../../_commons_/models/chainId";
+import { Exchange } from "commons";
+import { ChainId } from "commons";
 
 
 import dotenv from "dotenv";

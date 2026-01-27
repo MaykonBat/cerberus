@@ -1,6 +1,6 @@
 import Config from "../config";
 
-import { PrismaClient } from "commons/data";
+import { PrismaClient } from "commons";
 
 let singleton: PrismaClient;
 

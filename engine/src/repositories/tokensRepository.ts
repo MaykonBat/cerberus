@@ -1,6 +1,6 @@
-import { ChainId } from "commons/models/chainId";
+import { ChainId } from "commons";
 import connect from "./db";
-import { Token } from "commons/models/token";
+import { Token } from "commons";
 
 async function countTokens(network: ChainId): Promise<number> {
   const db = await connect();

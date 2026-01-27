@@ -1,7 +1,7 @@
-import { ChainId } from "commons/models/chainId";
+import {ChainId} from "commons";
 import connect from "./db";
-import Pool from "commons/models/pool";
-import { Exchange } from "commons/models/exchange";
+import {Pool} from "commons";
+import { Exchange } from "commons";
 import { PoolData } from "../services/uniswapTypes";
 import Config from "../config";
 

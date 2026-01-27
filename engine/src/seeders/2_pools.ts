@@ -3,7 +3,7 @@ import poolsRepository from "../repositories/poolsRepository";
 import Config from "../config";
 import { PoolData } from "../services/uniswapTypes";
 import { getTopPools } from "../services/uniswapService";
-import Pool from "commons/models/pool";
+import { Pool } from "commons";
 
 export class PoolsSeeder implements ISeeder {
     async execute() : Promise<void> {
