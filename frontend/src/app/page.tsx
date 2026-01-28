@@ -8,7 +8,7 @@ import Navbar from "@/components/Navbars/AuthNavbar.js";
 import FooterSmall from "@/components/Footers/FooterSmall.js";
 
 import { doLogin } from "@/services/Web3Service";
-import { Status } from "../../../packages/commons/dist/models/status";
+import {Status} from "commons";
 
 export default function Login() {
   const { push } = useRouter();

@@ -7,3 +7,4 @@ export * from "./models/user";
 export * from "./models/jwt";
 export { PrismaClient } from "@prisma/client";
 export { default as Pool } from "./models/pool";
+export { default as ConfigBase } from "./config/configBase";

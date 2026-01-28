@@ -6,8 +6,8 @@
     "declaration": true,
     "emitDeclarationOnly": false,
     "noEmit": false,
-    "module": "ESNext",
-    "moduleResolution": "Bundler"
+    "module": "commonjs",
+    "moduleResolution": "node",
   },
   "include": ["src"]
 }

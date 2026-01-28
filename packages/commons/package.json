@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Cerberus Common Library",
   "private": true,
-  "type": "module",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -18,12 +18,14 @@
   },
   "keywords": [],
   "author": "Blue Alien",
-  "license": "MIT", 
+  "license": "MIT",
   "devDependencies": {
+    "@types/dotenv": "^6.1.1",
     "prisma": "^6.19.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.0"
+    "@prisma/client": "^6.19.0",
+    "dotenv": "^16.6.1"
   }
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Pool from "../../../../packages/commons/dist/models/pool";
+import {Pool} from "commons";
 
 // components
 

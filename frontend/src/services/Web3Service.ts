@@ -1,7 +1,7 @@
 import { Contract } from "ethers";
-import { JWT } from "../../../packages/commons/dist/models/jwt";
-import { Plan } from "../../../packages/commons/dist/models/plan";
-import { Status } from "../../../packages/commons/dist/models/status";
+import {JWT} from "commons";
+import { Plan } from "commons";
+import { Status } from "commons";
 import ConfigService from "./ConfigService";
 import { BrowserProvider } from "ethers";
 import ERC20_ABI from "../../../packages/commons/src/services/ERC20.json";
