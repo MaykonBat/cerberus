@@ -8,4 +8,6 @@ export default class ConfigService {
   }
 
   static CERBERUS_PAY_CONTRACT: string = `${process.env.CERBERUS_PAY_CONTRACT}`;
+
+  static BACKEND_URL: string = `${process.env.BACKEND_URL}`;
 }

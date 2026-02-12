@@ -10,7 +10,11 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
-    }
+    },
+    "./services/cryptoService": {
+    "types": "./dist/services/cryptoService.d.ts",
+    "default": "./dist/services/cryptoService.js"
+  }
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -20,12 +24,14 @@
   "author": "Blue Alien",
   "license": "MIT",
   "devDependencies": {
+    "@types/aes-js": "^3.1.4",
     "@types/dotenv": "^6.1.1",
     "prisma": "^6.19.0",
     "typescript": "^5.9.3"
   },
   "dependencies": {
     "@prisma/client": "^6.19.0",
+    "aes-js": "^3.1.2",
     "dotenv": "^16.6.1"
   }
 }

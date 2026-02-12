@@ -6,8 +6,9 @@ export default class ConfigBase {
   static NODE_ENV: string = `${process.env.NODE_ENV || "development"}`;
   static DEV_ENV: boolean = ConfigBase.NODE_ENV === "development";
   static SITE_URL: string = `${process.env.SITE_URL || "http://localhost:3000"}`;
-  static MAILER_TRANSPORT: string = `${process.env.MAILER_TRANSPORT}`;
+  //static MAILER_TRANSPORT: string = `${process.env.MAILER_TRANSPORT}`; movido para o backend
 
+  /*
   static getDefaultFrom(transport: string) : string {
     if(!transport) return "";
     const spl = transport.split("//");
@@ -15,6 +16,7 @@ export default class ConfigBase {
   }
 
   static DEFAULT_FROM: string = ConfigBase.getDefaultFrom(ConfigBase.MAILER_TRANSPORT);
+  */ //movido tudo pro backend
 
   //database
   static DATABASE_URL: string = `${process.env.DATABASE_URL || "mongodb://127.0.0.1:27017/cerberus"}`;

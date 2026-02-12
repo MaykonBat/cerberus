@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 import Navbar from "@/components/Navbars/AuthNavbar.js";
 import FooterSmall from "@/components/Footers/FooterSmall.js";
+import { activate, signOut } from "@/services/AuthService";
 
 export default function Activate() {
   const { push } = useRouter();
@@ -12,16 +13,28 @@ export default function Activate() {
   const searchParams = useSearchParams();
 
   const [code, setCode] = useState<string>(searchParams.get("code") || "");
-  const [wallet, setWallet] = useState<string>(searchParams.get("wallet") || "");
+  const [wallet, setWallet] = useState<string>(
+    searchParams.get("wallet") || "",
+  );
   const [message, setMessage] = useState<string>("");
 
   useEffect(() => {
     if (code && code.length === 6 && wallet) {
-      //TODO: ativação via backend
-      if (code === "123456" && wallet === "0x3dC608b4eF45A6EA123AB6446fCC7e6235ef8848")
-        push("/pay/" + wallet);
-      else 
-        setMessage("Wrong code!");
+      activate(wallet, code)
+        .then((token) => {
+          localStorage.setItem("token", token);
+          push("/pay/" + wallet);
+        })
+        .catch((err) =>
+          setMessage(
+            err.response ? JSON.stringify(err.response.data) : err.message,
+          ),
+        );
+      return;
+    } else if (!wallet) {
+      const address = localStorage.getItem("wallet");
+      if (address) setWallet(address);
+      else signOut();
     }
   }, [code, wallet]);
 
@@ -32,11 +45,19 @@ export default function Activate() {
     }
 
     setMessage("Activating... wait...");
-    //TODO: ativação via backend
-    if (code === "123456" && wallet === "0x3dC608b4eF45A6EA123AB6446fCC7e6235ef8848")
-      push("/pay/" + wallet);
-    else 
-      setMessage("Wrong code!");
+    const address = localStorage.getItem("wallet");
+    if (address) {
+      activate(wallet, code)
+        .then((token) => {
+          localStorage.setItem("token", token);
+          push("/pay/" + wallet);
+        })
+        .catch((err) =>
+          setMessage(
+            err.response ? JSON.stringify(err.response.data) : err.message,
+          ),
+        );
+    } else signOut();
   }
 
   return (

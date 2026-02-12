@@ -6,13 +6,15 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/components/Navbars/AuthNavbar.js";
 import FooterSmall from "@/components/Footers/FooterSmall.js";
 
-import {getWallet} from "@/services/Web3Service";
+import { getWallet } from "@/services/Web3Service";
+import { signUp } from "@/services/AuthService";
+import { User } from "commons";
 
 type NewUser = {
-    name: string;
-    email: string;
-    checkTos: boolean;
-}
+  name: string;
+  email: string;
+  checkTos: boolean;
+};
 
 export default function Register() {
   const { push } = useRouter();
@@ -20,25 +22,28 @@ export default function Register() {
   const [user, setUser] = useState<NewUser>({
     name: "",
     email: "",
-    checkTos: false
+    checkTos: false,
   });
   const [message, setMessage] = useState<string>("");
 
-  function onUserChange(evt: React.ChangeEvent<HTMLInputElement>){
-    setUser((prevState: any) => ({ ...prevState, [evt.target.id]: evt.target.value }));
+  function onUserChange(evt: React.ChangeEvent<HTMLInputElement>) {
+    setUser((prevState: any) => ({
+      ...prevState,
+      [evt.target.id]: evt.target.value,
+    }));
   }
 
-  async function register(){
+  async function register() {
     setMessage("Saving... wait...");
 
-    if(!user.checkTos) {
+    if (!user.checkTos) {
       setMessage("You must read and accept the Terms of Service");
       return;
     }
 
     let wallet = localStorage.getItem("wallet");
-    if(!wallet){
-      try{
+    if (!wallet) {
+      try {
         wallet = await getWallet();
       } catch (err: any) {
         setMessage(err.message);
@@ -46,11 +51,20 @@ export default function Register() {
       }
     }
 
-    console.log(wallet);
+    try {
+      await signUp({
+        name: user.name,
+        address: wallet,
+        email: user.email,
+        planId: "Gold",
+      } as User);
 
-    //TODO: cadastrar via backend
-
-    push("/register/activate?wallet=" + wallet);
+      push("/register/activate?wallet=" + wallet);
+    } catch (err: any) {
+      setMessage(
+        err.response ? JSON.stringify(err.response.data) : err.message,
+      );
+    }
   }
 
   function btnSaveClick() {

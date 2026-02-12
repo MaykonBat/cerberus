@@ -1,15 +1,37 @@
 import { Contract } from "ethers";
 import {JWT} from "commons";
 import { Plan } from "commons";
-import { Status } from "commons";
 import ConfigService from "./ConfigService";
 import { BrowserProvider } from "ethers";
 import ERC20_ABI from "../../../packages/commons/src/services/ERC20.json";
+import { Auth, parseJwt, signIn } from "./AuthService";
 
 function getProvider() {
-  if (!window.ethereum) throw new Error(`No MetaMask found!`);
-  return new BrowserProvider(window.ethereum);
+  const { ethereum } = window as any;
+
+  if (!ethereum) {
+    throw new Error("No wallet found");
+  }
+
+  // if there is multiple providers
+  if (ethereum.providers && Array.isArray(ethereum.providers)) {
+    const metaMaskProvider = ethereum.providers.find(
+      (provider: any) => provider.isMetaMask
+    );
+
+    if (metaMaskProvider) {
+      return new BrowserProvider(metaMaskProvider);
+    }
+  }
+
+  // fallback
+  if (ethereum.isMetaMask) {
+    return new BrowserProvider(ethereum);
+  }
+
+  throw new Error("MetaMask not found");
 }
+
 
 export async function getWallet(): Promise<string> {
   const provider = getProvider();
@@ -31,17 +53,17 @@ export async function doLogin(): Promise<JWT | undefined> {
   const signer = await provider.getSigner();
 
   const challenge = await signer.signMessage(message);
-  console.log(challenge);
 
-  //TODO: enviar timestamp, wallet e challenge para o backend
+  const token = await signIn({
+    secret: challenge,
+    timestamp,
+    wallet
+  } as Auth);
 
-  return {
-    address: "0x3dC608b4eF45A6EA123AB6446fCC7e6235ef8848",
-    name: "Blue Alien",
-    planId: "Gold",
-    status: Status.ACTIVE,
-    userId: "123"
-  } as JWT;
+  localStorage.setItem("token", token);
+  console.log(token);
+
+  return parseJwt(token);
 }
 
 export async function startPayment(plan: Plan): Promise<boolean>{

@@ -8,10 +8,11 @@ import FooterSmall from "@/components/Footers/FooterSmall.js";
 import {User} from "commons";
 import {Plan} from "commons";
 import {Status} from "commons";
-import {ChainId} from "commons";
 
 import { startPayment } from "@/services/Web3Service";
 import { ethers } from "ethers";
+import { getJwt, signOut } from "@/services/AuthService";
+import { getUser, payUser } from "@/services/UserService";
 
 export default function Activate() {
   const { push } = useRouter();
@@ -46,21 +47,29 @@ export default function Activate() {
   useEffect(() => {
     setMessage("Loading payment info...");
 
-    //TODO: obter JWT
+    const jwt = getJwt();
 
-    //TODO: validar info de pgto
+    if(!wallet || !jwt || jwt.address.toUpperCase() !== wallet.toUpperCase()){
+      signOut();
+      return;
+    }
 
-    //TODO: carregar usuário do banco com a wallet
-    setUser({
-      name: "Maykon",
-      email: "m.bluealien@gmail.com",
-      status: Status.ACTIVE,
-      network: ChainId.SEPOLIA,
-      address: wallet,
-      planId: "Gold",
-      activationCode: "123456",
-      activationDate: new Date()
-    });
+    getUser(jwt.address)
+    .then(user => {
+      if(user.status === Status.ACTIVE){
+        push("/dashboard");
+        return;
+      }
+
+      if(user.status !== Status.BLOCKED){
+        signOut();
+        return;
+      }
+
+      setUser(user);
+      setMessage("");
+    })
+    .catch(err => setMessage(err.response ? JSON.stringify(err.response.data) : err.message));
   }, [wallet]);
 
   function btnPayClick() {
@@ -69,11 +78,10 @@ export default function Activate() {
     startPayment(plan)
       .then(result => {
         setMessage("Payment authorized. Starting the 1st month charge... wait...");
-        //TODO: chamar função de pagar do backend
-        return Promise.resolve();
+        return payUser();
       })
       .then(result => push("/dashboard"))
-      .catch(err => setMessage(err.response ? err.response.data : err.message));
+      .catch(err => setMessage(err.response ? JSON.stringify(err.response.data) : err.message));
   }
 
   return (
