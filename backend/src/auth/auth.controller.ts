@@ -2,9 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
-  NotFoundException,
   Param,
-  ParseIntPipe,
   Post,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -42,7 +40,6 @@ export class AuthController {
 
     if (wallet.toUpperCase() === data.wallet.toUpperCase()) {
       const user = await this.userService.getUserByWallet(wallet);
-      if (!user) throw new NotFoundException('User not found. Signup first.');
       if (user.status === Status.BANNED)
         throw new UnauthorizedException('User Banned.');
 

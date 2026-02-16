@@ -1,11 +1,6 @@
-import { PrismaClient } from "commons";
+/* istanbul ignore file */
 
-let singleton: PrismaClient;
+import { PrismaClient } from 'commons';
 
-export default async () : Promise<PrismaClient> => {
-    if(!singleton) {
-        singleton = new PrismaClient();
-        await singleton.$connect();
-    }
-    return singleton;
-}
+const prisma: PrismaClient = new PrismaClient();
+export default prisma;

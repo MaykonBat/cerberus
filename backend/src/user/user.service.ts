@@ -6,15 +6,14 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Status, User } from 'commons';
-import connect from '../db';
+import db from '../db';
 import { UserDTO } from './user.dto';
 import Config from '../config';
-import {encrypt, decrypt} from 'commons/services/cryptoService';
+import { encrypt, decrypt } from 'commons/services/cryptoService';
 
 @Injectable()
 export class UserService {
   async getUserByWallet(address: string): Promise<User> {
-    const db = await connect();
     const user = await db.users.findFirst({
       where: {
         address: {
@@ -31,7 +30,6 @@ export class UserService {
   }
 
   async getUser(id: string): Promise<User> {
-    const db = await connect();
     const user = await db.users.findUnique({
       where: { id },
     });
@@ -51,8 +49,6 @@ export class UserService {
   }
 
   async addUser(user: UserDTO): Promise<User> {
-    const db = await connect();
-
     const oldUser = await db.users.findFirst({
       where: {
         OR: [
@@ -99,10 +95,7 @@ export class UserService {
 
   async payUser(address: string): Promise<User> {
     const user = await this.getUserByWallet(address);
-    if (!user) throw new NotFoundException();
     if (user.status !== Status.BLOCKED) throw new ForbiddenException();
-
-    const db = await connect();
 
     //TODO: pay via blockchain
 
@@ -111,14 +104,11 @@ export class UserService {
       data: { status: Status.ACTIVE },
     });
 
-    if (!updatedUser) throw new NotFoundException();
     updatedUser.privateKey = '';
     return updatedUser;
   }
 
   async updateUser(id: string, user: UserDTO): Promise<User> {
-    const db = await connect();
-
     const data: any = {
       address: user.address,
       email: user.email,
@@ -134,34 +124,31 @@ export class UserService {
       data,
     });
 
-    if (!updatedUser) throw new NotFoundException();
-    updatedUser.privateKey = '';
+    if (updatedUser) 
+      updatedUser.privateKey = '';
+
     return updatedUser;
   }
 
-  async activateUser(wallet: string, code: string) : Promise<User> {
+  async activateUser(wallet: string, code: string): Promise<User> {
     const user = await this.getUserByWallet(wallet);
+    if (user.status !== Status.NEW) return user;
 
-    if(!user) throw new NotFoundException();
-
-    if(user.status !== Status.NEW) return user;
-
-    if(user.activationCode !== code)
+    if (user.activationCode !== code)
       throw new UnauthorizedException(`Wrong activation code.`);
 
-    const tenMinutesAgo = new Date(Date.now() - (10 * 60 * 1000));
-    if(user.activationDate < tenMinutesAgo)
+    const tenMinutesAgo = new Date(Date.now() - 10 * 60 * 1000);
+    if (user.activationDate < tenMinutesAgo)
       throw new UnauthorizedException(`Activation code expired.`);
 
-    const db = await connect();
     const updatedUser = await db.users.update({
       where: { id: user.id },
       data: {
-        status: Status.BLOCKED
-      }
-    })
+        status: Status.BLOCKED,
+      },
+    });
 
-    updatedUser.privateKey = "";
+    updatedUser.privateKey = '';
     return updatedUser;
   }
 }

@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { ConfigBase } from 'commons';
 
 export default class Config extends ConfigBase {
