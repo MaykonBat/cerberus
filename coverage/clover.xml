@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1771022636458" clover="3.2.0">
-  <project timestamp="1771022636459" name="All files">
-    <metrics statements="117" coveredstatements="117" conditionals="82" coveredconditionals="68" methods="19" coveredmethods="19" elements="218" coveredelements="204" complexity="0" loc="117" ncloc="117" packages="2" files="4" classes="4"/>
+<coverage generated="1771511663010" clover="3.2.0">
+  <project timestamp="1771511663010" name="All files">
+    <metrics statements="161" coveredstatements="161" conditionals="108" coveredconditionals="92" methods="34" coveredmethods="34" elements="303" coveredelements="287" complexity="0" loc="161" ncloc="161" packages="3" files="6" classes="6"/>
     <package name="auth">
       <metrics statements="45" coveredstatements="45" conditionals="42" coveredconditionals="33" methods="8" coveredmethods="8"/>
       <file name="auth.controller.ts" path="C:\Users\mayko\LuizTools\web23-projects\cerberus\cerberus\backend\src\auth\auth.controller.ts">
@@ -44,10 +44,10 @@
       </file>
       <file name="auth.service.ts" path="C:\Users\mayko\LuizTools\web23-projects\cerberus\cerberus\backend\src\auth\auth.service.ts">
         <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="4"/>
-        <line num="1" count="3" type="stmt"/>
-        <line num="2" count="3" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="7" count="3" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="4" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
         <line num="8" count="1" type="cond" truecount="3" falsecount="1"/>
         <line num="11" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
@@ -56,8 +56,61 @@
         <line num="28" count="1" type="stmt"/>
       </file>
     </package>
+    <package name="pool">
+      <metrics statements="44" coveredstatements="44" conditionals="24" coveredconditionals="23" methods="15" coveredmethods="15"/>
+      <file name="pool.controller.ts" path="C:\Users\mayko\LuizTools\web23-projects\cerberus\cerberus\backend\src\pool\pool.controller.ts">
+        <metrics statements="19" coveredstatements="19" conditionals="8" coveredconditionals="7" methods="6" coveredmethods="6"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="cond" truecount="3" falsecount="1"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="33" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="44" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="50" count="1" type="stmt"/>
+        <line num="54" count="1" type="stmt"/>
+      </file>
+      <file name="pool.service.ts" path="C:\Users\mayko\LuizTools\web23-projects\cerberus\cerberus\backend\src\pool\pool.service.ts">
+        <metrics statements="25" coveredstatements="25" conditionals="16" coveredconditionals="16" methods="9" coveredmethods="9"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="17" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="32" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="47" count="2" type="stmt"/>
+        <line num="60" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="77" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="82" count="1" type="stmt"/>
+        <line num="92" count="1" type="stmt"/>
+        <line num="93" count="1" type="stmt"/>
+        <line num="97" count="1" type="stmt"/>
+        <line num="98" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+      </file>
+    </package>
     <package name="user">
-      <metrics statements="72" coveredstatements="72" conditionals="40" coveredconditionals="35" methods="11" coveredmethods="11"/>
+      <metrics statements="72" coveredstatements="72" conditionals="42" coveredconditionals="36" methods="11" coveredmethods="11"/>
       <file name="user.controller.ts" path="C:\Users\mayko\LuizTools\web23-projects\cerberus\cerberus\backend\src\user\user.controller.ts">
         <metrics statements="25" coveredstatements="25" conditionals="20" coveredconditionals="17" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
@@ -87,7 +140,7 @@
         <line num="60" count="1" type="stmt"/>
       </file>
       <file name="user.service.ts" path="C:\Users\mayko\LuizTools\web23-projects\cerberus\cerberus\backend\src\user\user.service.ts">
-        <metrics statements="47" coveredstatements="47" conditionals="20" coveredconditionals="18" methods="7" coveredmethods="7"/>
+        <metrics statements="47" coveredstatements="47" conditionals="22" coveredconditionals="19" methods="7" coveredmethods="7"/>
         <line num="1" count="3" type="stmt"/>
         <line num="8" count="3" type="stmt"/>
         <line num="9" count="3" type="stmt"/>

@@ -4,7 +4,7 @@ import { AuthService } from '../../src/auth/auth.service';
 import { jwtMock } from './auth.service.mock';
 import { UnauthorizedException } from '@nestjs/common';
 
-describe('UserService Tests', () => {
+describe('AuthService Tests', () => {
   let authService: AuthService;
 
   beforeAll(async () => {

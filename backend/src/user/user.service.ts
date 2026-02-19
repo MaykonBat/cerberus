@@ -83,7 +83,7 @@ export class UserService {
         address: user.address,
         email: user.email,
         name: user.name,
-        planId: user.planId,
+        planId: user.planId || "Gold",
         activationCode: UserService.generateActivationCode(6),
         activationDate: new Date(),
         privateKey: '',

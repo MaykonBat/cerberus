@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import {Pool} from "commons";
+import { Pool } from "commons";
+import { getTopPools } from "@/services/PoolService";
 
 // components
 
@@ -7,7 +8,9 @@ export default function CardTopPools() {
   const [pools, setPools] = useState<Pool[]>([]);
 
   useEffect(() => {
-    //TODO: carregar da API
+    getTopPools()
+      .then((pools) => setPools(pools))
+      .catch((err) => console.error(err));
   }, []);
 
   return (
@@ -39,8 +42,8 @@ export default function CardTopPools() {
               </tr>
             </thead>
             <tbody>
-              {
-              pools && pools.map((p) => (
+              {pools &&
+                pools.map((p) => (
                   <tr>
                     <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left">
                       {p.symbol} ({p.fee / 10000}%)
@@ -62,32 +65,3 @@ export default function CardTopPools() {
     </>
   );
 }
-
-/*
-{
-    id: "",
-    exchange: 1,
-    fee: 10000,
-    lastUpdate: new Date(),
-    lastUpdate_15: new Date(),
-    lastUpdate_60: new Date(),
-    network: 1,
-    price0: "100",
-    price0_15: "100",
-    price0_60: "100",
-    price0Change: 10,
-    price0Change_15: 10,
-    price0Change_60: 10,
-    price1: "50",
-    price1_15: "50",
-    price1_60: "50",
-    price1Change: 15,
-    price1Change_15: 15,
-    price1Change_60: 15,
-    symbol: "BTCUSDT",
-    symbol0: "BTC",
-    symbol1: "USDT",
-    token0: "",
-    token1: ""
-  }
-*/
