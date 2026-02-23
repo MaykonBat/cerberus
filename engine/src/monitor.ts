@@ -2,6 +2,7 @@ import Config from "./config";
 import { getTopPools } from "commons/services/uniswapService";
 import poolsRepository from "./repositories/poolsRepository";
 import WSSInit from "./wss";
+import cerberusExecution from "./cerberus";
 
 const WSS = WSSInit();
 
@@ -15,13 +16,15 @@ async function executionCycle() {
     const bulkResult = [];
     for (let j = 0; j < pools.length; j++) {
       const pool = pools[j];
-      const result = await poolsRepository.updatePrices(pool);
-      if (!result) continue;
+      const poolResult = await poolsRepository.updatePrices(pool);
+      if (!poolResult) continue;
 
-      bulkResult.push(result);
+      bulkResult.push(poolResult);
+
+      cerberusExecution(poolResult);
 
       console.log(
-        `Price for ${result.symbol} (${result.fee / 10000}%) is ${Number(result.price0).toFixed(3)}`,
+        `Price for ${poolResult.symbol} (${poolResult.fee / 10000}%) is ${Number(poolResult.price0).toFixed(3)}`,
       );
     }
 

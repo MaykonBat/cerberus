@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsx src/app.ts",
     "seeder": "tsx src/seeders/0_index",
-    "encrypt": "tsx src/utils/encrypt.ts <message here>",
+    "encrypt": "tsx src/utils/encrypt.ts 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80",
     "sign": "tsx src/utils/jwt.ts <private key here>"
   },
   "keywords": [],
