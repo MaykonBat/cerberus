@@ -1,8 +1,8 @@
 import ISeeder from "./ISeeder";
 import tokensRepository from "../repositories/tokensRepository";
 import Config from "../config";
-import { TokenData } from "../services/uniswapTypes";
-import { getTokens } from "../services/uniswapService";
+import { TokenData } from "commons/services/uniswapTypes";
+import { getTokens } from "commons/services/uniswapService";
 
 export class TokensSeeder implements ISeeder {
     async execute() : Promise<void> {

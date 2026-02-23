@@ -15,16 +15,27 @@ export class AuthService {
   }
 
   decodeToken(authorization: string): JWT {
-    return this.jwtService.decode(authorization.replace('Bearer ', '')) as JWT;
+    if (!authorization?.startsWith('Bearer '))
+      throw new UnauthorizedException('Invalid authorization header.');
+
+    const token = authorization.slice(7);
+    return this.jwtService.decode(token) as JWT;
+
+  
   }
 
-  async checkToken(token: string) {
+  async checkToken(authorization: string): Promise<boolean> {
+    if (!authorization?.startsWith('Bearer '))
+      throw new UnauthorizedException('Invalid authorization header.');
+
+    const token = authorization.slice(7);
+
     try {
-      return this.jwtService.verify(token.replace('Bearer ', ''), {
+      this.jwtService.verify(token, {
         secret: Config.JWT_SECRET,
       });
-    } catch (err) {
-      //console.error(err);
+      return true;
+    } catch {
       throw new UnauthorizedException('Invalid JWT.');
     }
   }

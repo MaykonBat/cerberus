@@ -1,8 +1,8 @@
 import ISeeder from "./ISeeder";
 import poolsRepository from "../repositories/poolsRepository";
 import Config from "../config";
-import { PoolData } from "../services/uniswapTypes";
-import { getTopPools } from "../services/uniswapService";
+import { PoolData } from "commons/services/uniswapTypes";
+import { getTopPools } from "commons/services/uniswapService";
 import { Pool } from "commons";
 
 export class PoolsSeeder implements ISeeder {
@@ -36,8 +36,8 @@ export class PoolsSeeder implements ISeeder {
                     symbol1: pool.token1.symbol,
                     token0: pool.token0.id,
                     token1: pool.token1.id,
-                    price0: pool.token0Price,
-                    price1: pool.token1Price                    
+                    price0: parseFloat(pool.token0Price),
+                    price1: parseFloat(pool.token1Price)                    
                 } as Pool));
             }
 

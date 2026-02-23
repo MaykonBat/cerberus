@@ -22,7 +22,7 @@ export default function Activate() {
       name: "Gold",
       id: "Gold",
       tokenSymbol: "WETH",
-      tokenAddress: "0xb16F35c0Ae2912430DAc15764477E179D9B9EbEa",
+      tokenAddress: "0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14",
       price: ethers.parseEther("0.001").toString(),
       maxAutomations: 10,
   });
@@ -39,10 +39,8 @@ export default function Activate() {
       wallet = params.wallet[0];
     }
   } else {
-    setMessage("Wallet não encontrada");
+    setMessage("Wallet not found.");
   }
-
-  //const wallet: string = typeof params.wallet === "string" ? params.wallet : params.wallet[0];
 
   useEffect(() => {
     setMessage("Loading payment info...");

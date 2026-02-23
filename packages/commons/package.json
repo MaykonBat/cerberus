@@ -12,9 +12,21 @@
       "default": "./dist/index.js"
     },
     "./services/cryptoService": {
-    "types": "./dist/services/cryptoService.d.ts",
-    "default": "./dist/services/cryptoService.js"
-  }
+      "types": "./dist/services/cryptoService.d.ts",
+      "default": "./dist/services/cryptoService.js"
+    },
+    "./services/cerberusPayService": {
+      "types": "./dist/services/cerberusPayService.d.ts",
+      "default": "./dist/services/cerberusPayService.js"
+    },
+    "./services/uniswapService": {
+      "types": "./dist/services/uniswapService.d.ts",
+      "default": "./dist/services/uniswapService.js"
+    },
+    "./services/uniswapTypes": {
+      "types": "./dist/services/uniswapTypes.d.ts",
+      "default": "./dist/services/uniswapTypes.js"
+    }
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
@@ -32,6 +44,8 @@
   "dependencies": {
     "@prisma/client": "^6.19.0",
     "aes-js": "^3.1.2",
-    "dotenv": "^16.6.1"
+    "axios": "^1.13.5",
+    "dotenv": "^16.6.1",
+    "ethers": "^6.16.0"
   }
 }

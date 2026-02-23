@@ -10,6 +10,7 @@ import db from '../db';
 import { UserDTO } from './user.dto';
 import Config from '../config';
 import { encrypt, decrypt } from 'commons/services/cryptoService';
+import { pay } from "commons/services/cerberusPayService";
 
 @Injectable()
 export class UserService {
@@ -95,15 +96,18 @@ export class UserService {
 
   async payUser(address: string): Promise<User> {
     const user = await this.getUserByWallet(address);
-    if (user.status !== Status.BLOCKED) throw new ForbiddenException();
 
-    //TODO: pay via blockchain
+    if (user.status !== Status.BLOCKED) {
+      throw new ForbiddenException();
+    }
+
+    await pay(user.address);
 
     const updatedUser = await db.users.update({
       where: { id: user.id },
       data: { status: Status.ACTIVE },
     });
-
+    
     updatedUser.privateKey = '';
     return updatedUser;
   }

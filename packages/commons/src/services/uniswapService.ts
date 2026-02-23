@@ -1,5 +1,5 @@
 import axios from "axios";
-import Config from "../config";
+import ConfigBase from "../config/configBase";
 import { PoolData, TokenData } from "./uniswapTypes";
 
 export async function getTokens(skip: number) : Promise<TokenData[]> {
@@ -15,7 +15,7 @@ export async function getTokens(skip: number) : Promise<TokenData[]> {
         }
     `;
 
-    const {data} = await axios.post(Config.UNISWAP_GRAPH_URL, { query });
+    const {data} = await axios.post(ConfigBase.UNISWAP_GRAPH_URL, { query });
     return data.data ? data.data.tokens as TokenData[] : [];
 }
 
@@ -43,6 +43,6 @@ export async function getTopPools(count: number = 20, skip: number = 0) : Promis
         }
     `;
 
-    const {data} = await axios.post(Config.UNISWAP_GRAPH_URL, { query });
+    const {data} = await axios.post(ConfigBase.UNISWAP_GRAPH_URL, { query });
     return data.data ? data.data.pools as PoolData[] : [];
 }

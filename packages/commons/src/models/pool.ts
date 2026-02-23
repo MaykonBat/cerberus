@@ -11,18 +11,18 @@ export default class Pool {
     fee: number;
     exchange: Exchange;
     network: ChainId;
-    price0: string;
+    price0: number;
     price0Change: number;
-    price0_15: string | null;
+    price0_15: number | null;
     price0Change_15: number | null;
-    price0_60: string | null;
+    price0_60: number | null;
     price0Change_60: number | null;
 
-    price1: string;
+    price1: number;
     price1Change: number;
-    price1_15: string | null;
+    price1_15: number | null;
     price1Change_15:number | null;
-    price1_60: string | null;
+    price1_60: number | null;
     price1Change_60:number | null;
 
     lastUpdate: Date;
@@ -40,18 +40,18 @@ export default class Pool {
         this.network = pool.network;
         this.exchange = pool.exchange;
 
-        this.price0 = pool.price0 || "0";
+        this.price0 = pool.price0 || 0;
         this.price0Change = pool.price0Change || 0;
-        this.price0_15 = pool.price0_15 || "0";
+        this.price0_15 = pool.price0_15 || 0;
         this.price0Change_15 = pool.price0Change_15 || 0;
-        this.price0_60 = pool.price0_60 || "0";
+        this.price0_60 = pool.price0_60 || 0;
         this.price0Change_60 = pool.price0Change_60 || 0;
         
-        this.price1 = pool.price1 || "0";
+        this.price1 = pool.price1 || 0;
         this.price1Change = pool.price1Change || 0;
-        this.price1_15 = pool.price1_15 || "0";
+        this.price1_15 = pool.price1_15 || 0;
         this.price1Change_15 = pool.price1Change_15 || 0;
-        this.price1_60 = pool.price1_60 || "0";
+        this.price1_60 = pool.price1_60 || 0;
         this.price1Change_60 = pool.price1Change_60 || 0;
 
         this.lastUpdate = pool.lastUpdate || new Date();

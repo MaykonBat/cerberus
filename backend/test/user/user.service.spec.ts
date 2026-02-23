@@ -16,6 +16,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 
+jest.mock("../../../packages/commons/src/services/cerberusPayService");
+
 describe('UserService Tests', () => {
   let userService: UserService;
 

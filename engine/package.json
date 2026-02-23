@@ -17,12 +17,12 @@
     "commons": "*",
     "dotenv": "^17.2.0",
     "jsonwebtoken": "^9.0.2",
-    "nodemailer": "^7.0.5",
+    "nodemailer": "^7.0.13",
     "ws": "^8.18.3"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/nodemailer": "^6.4.17",
+    "@types/nodemailer": "^6.4.23",
     "@types/ws": "^8.18.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",

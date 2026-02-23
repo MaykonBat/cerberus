@@ -4,6 +4,7 @@ import { ChainId } from "commons";
 
 export default class Config extends ConfigBase {
   static MONITOR_INTERVAL: number = parseInt(`${process.env.MONITOR_INTERVAL}`);
+  static CHARGE_INTERVAL: number = parseInt(`${process.env.CHARGE_INTERVAL}`);
 
   static NETWORK: string = `${process.env.NETWORK}`;
 
@@ -33,9 +34,16 @@ export default class Config extends ConfigBase {
 
   static EXCHANGE2: Exchange = Config.getExchange(Config.EXCHANGE);
 
-  static UNISWAP_GRAPH_URL: string = `${process.env.UNISWAP_GRAPH_URL}`;
-
   static POOL_COUNT: number = parseInt(`${process.env.POOL_COUNT}`);
 
   static WS_PORT: number = parseInt(`${process.env.WS_PORT}`);
+
+  static MAIL_HOST: string = `${process.env.MAIL_HOST}`;
+  static MAIL_PORT: number = Number(`${process.env.MAIL_PORT}`);
+  static MAIL_SECURE: boolean = `${process.env.MAIL_SECURE}` === "true";
+  static MAIL_USER: string = `${process.env.MAIL_USER}`;
+  static MAIL_PASSWORD: string = `${process.env.MAIL_PASSWORD}`;
+  static DEFAULT_FROM = `"Cerberus" <${process.env.MAIL_USER}>`;
+
+  static SITE_URL: string = `${process.env.SITE_URL}`;
 }
