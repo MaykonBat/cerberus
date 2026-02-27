@@ -29,8 +29,9 @@
     }
   },
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
-    "prisma:generate": "prisma generate"
+    "build": "tsc -p tsconfig.build.json && npm run copy-assets",
+    "prisma:generate": "prisma generate",
+    "copy-assets": "powershell -Command \"Copy-Item src\\services\\*.json dist\\services -Force\""
   },
   "keywords": [],
   "author": "Blue Alien",

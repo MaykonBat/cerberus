@@ -18,20 +18,19 @@ export class PoolService {
     return pool;
   }
 
-  async searchPool(symbol: string, fee: number): Promise<Pool> {
-    const pool = await db.pools.findFirst({
+  async searchPool(symbol: string): Promise<Pool[]> {
+    const pools = await db.pools.findMany({
       where: {
         symbol: {
           equals: symbol,
           mode: 'insensitive',
-        },
-        fee,
+        }
       },
     });
 
-    if (!pool) throw new NotFoundException();
+    if (!pools || !pools.length) throw new NotFoundException();
 
-    return pool;
+    return pools;
   }
 
   async getPools(page: number = 1, pageSize: number = 20): Promise<Pool[]> {
@@ -65,7 +64,7 @@ export class PoolService {
     const oneHourAgo = new Date(Date.now() - 1 * 61 * 60 * 1000);
 
     const top0Pools = (await db.pools.findMany({
-      take: 5,
+      take: 10,
       where: {
         price0Change_60: { gt: 0 },
         price1Change_60: { lt: 0 },
@@ -80,7 +79,7 @@ export class PoolService {
     });
 
     const top1Pools = (await db.pools.findMany({
-      take: 5,
+      take: 10,
       where: {
         price1Change_60: { gt: 0 },
         price0Change_60: { lt: 0 },

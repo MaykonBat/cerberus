@@ -15,8 +15,11 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import * as CerberusPayService from 'commons/services/cerberusPayService';
 
-jest.mock("../../../packages/commons/src/services/cerberusPayService");
+jest.mock('commons/services/cerberusPayService', () => ({
+  pay: jest.fn(),
+}));
 
 describe('UserService Tests', () => {
   let userService: UserService;
@@ -117,8 +120,11 @@ describe('UserService Tests', () => {
       ...blockedUserMock,
     } as userModel);
 
+    (CerberusPayService.pay as jest.Mock).mockResolvedValue('0xFAKE_TX_HASH');
+
     const result = await userService.payUser(blockedUserMock.address);
     expect(result).toBeDefined();
+    expect(CerberusPayService.pay).toHaveBeenCalledWith('0x123');
     expect(result.status).toEqual(Status.ACTIVE);
   });
 

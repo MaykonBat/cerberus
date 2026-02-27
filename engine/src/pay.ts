@@ -7,6 +7,7 @@ import Config from "./config";
 import usersRepository from "./repositories/usersRepository";
 import { Status } from "commons";
 import { sendMail } from "./services/mailService";
+import automationsRepository from "./repositories/automationsRepository";
 
 async function executionCycle() {
   console.log("Executing the payment cycle...");
@@ -23,8 +24,10 @@ async function executionCycle() {
   console.log(`[ENGINE] ${customers.length} customers loaded`);
 
   for (let i = 0; i < customers.length; i++) {
-    const customerAddress = customers[i];
-    if (/0x0+/.test(customerAddress)) continue;
+    const customerAddress = customers[i].toLowerCase();
+    if (/^(0x0+)$/.test(customerAddress)) continue;
+
+    let user;
 
     try {
       const nextPayment = await getCustomerNextPayment(customerAddress);
@@ -33,6 +36,10 @@ async function executionCycle() {
       console.log("[ENGINE] Charging customer " + customerAddress);
 
       await pay(customerAddress);
+      user = await usersRepository.updateUserStatus(customerAddress, Status.ACTIVE);
+      if(!user) continue;
+
+      await automationsRepository.startAutomations(user.id!);
 
       console.log(`[ENGINE] Payment OK for ${customerAddress}`);
     } catch (err: any) {
@@ -41,12 +48,14 @@ async function executionCycle() {
         err?.shortMessage || err?.message || err,
       );
 
-      const user = await usersRepository.updateUserStatus(
+      user = await usersRepository.updateUserStatus(
         customerAddress,
         Status.BLOCKED,
       );
 
       if (!user) continue;
+
+      await automationsRepository.stopAutomations(user.id!);
 
       try {
         await sendMail(

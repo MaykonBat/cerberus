@@ -12,6 +12,8 @@ import { AuthService } from './auth/auth.service';
 import { JwtService } from '@nestjs/jwt';
 import { PoolController } from './pool/pool.controller';
 import { PoolService } from './pool/pool.service';
+import { AutomationController } from './automation/automation.controller';
+import { AutomationService } from './automation/automation.service';
 
 @Module({
   imports: [
@@ -24,7 +26,7 @@ import { PoolService } from './pool/pool.service';
     }),
     AuthModule
   ],
-  controllers: [AppController, UserController, PoolController],
-  providers: [AppService, UserService, AuthService, JwtService, PoolService],
+  controllers: [AppController, UserController, PoolController, AutomationController],
+  providers: [AppService, UserService, AuthService, JwtService, PoolService, AutomationService],
 })
 export class AppModule {}

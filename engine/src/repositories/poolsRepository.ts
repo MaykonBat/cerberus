@@ -91,6 +91,8 @@ async function updatePrices(poolData: PoolData): Promise<Pool | null> {
       symbol: poolData.token0.symbol + poolData.token1.symbol,
       symbol0: poolData.token0.symbol,
       symbol1: poolData.token1.symbol,
+      decimals0: Number(poolData.token0.decimals),
+      decimals1: Number(poolData.token1.decimals),
     } as Pool);
     pool = await addPool(pool);
   }

@@ -41,21 +41,20 @@ describe('PoolService Tests', () => {
   });
 
   it('Should search pool', async () => {
-    prismaMock.pools.findFirst.mockResolvedValue({
+    prismaMock.pools.findMany.mockResolvedValue([{
       ...poolMock,
-    } as poolModel);
+    } as poolModel]);
 
-    const result = await poolService.searchPool(poolMock.symbol, poolMock.fee);
+    const result = await poolService.searchPool(poolMock.symbol);
     expect(result).toBeDefined();
-    expect(result.symbol).toEqual(poolMock.symbol);
-    expect(result.fee).toEqual(poolMock.fee);
+    expect(result.length).toBeTruthy();
   });
 
   it('Should NOT search pool', async () => {
-    prismaMock.pools.findFirst.mockResolvedValue(null);
+    prismaMock.pools.findMany.mockResolvedValue([]);
 
     await expect(
-      poolService.searchPool(poolMock.symbol, poolMock.fee),
+      poolService.searchPool(poolMock.symbol),
     ).rejects.toEqual(new NotFoundException());
   });
 

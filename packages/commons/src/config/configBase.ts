@@ -35,4 +35,5 @@ export default class ConfigBase {
   static AES_KEY: string = `${process.env.AES_KEY}`;
 
   static UNISWAP_GRAPH_URL: string = `${process.env.UNISWAP_GRAPH_URL}`;
+  static UNISWAP_ROUTER: string = `${process.env.UNISWAP_ROUTER}`;
 }
