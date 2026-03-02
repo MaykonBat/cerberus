@@ -14,6 +14,7 @@ import ConditionInput from "./ConditionInput";
 import { addAutomation, updateAutomation, getAutomation } from "@/services/AutomationService";
 
 import {ethers} from "ethers";
+import Toast from "@/components/Toast";
 
 export default function NewAutomation() {
   const { push } = useRouter();
@@ -263,6 +264,7 @@ export default function NewAutomation() {
           <FooterAdmin />
         </div>
       </div>
+      <Toast />
     </>
   );
 }

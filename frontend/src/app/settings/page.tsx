@@ -10,6 +10,7 @@ import { User } from "commons";
 import { getJwt } from "@/services/AuthService";
 import { useRouter } from "next/navigation";
 import Alert from "@/components/Alert";
+import Toast from "@/components/Toast";
 
 export default function Settings() {
   const { push } = useRouter();
@@ -239,6 +240,7 @@ export default function Settings() {
           <FooterAdmin />
         </div>
       </div>
+      <Toast />
     </>
   );
 }

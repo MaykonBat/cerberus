@@ -27,12 +27,14 @@ export default function RootLayout({
             sizes="76x76"
             href="/img/brand/apple-icon.png"
           />
+          <link type="text/css" href="/css/notyf.min.css" rel="stylesheet" />
       </head>
       <body
         className="text-blueGray-700 antialiased"
       >
         {children}
         <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript" src="/js/notyf.min.js"></script>
       </body>
     </html>
   );

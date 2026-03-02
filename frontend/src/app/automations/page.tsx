@@ -11,6 +11,7 @@ import FooterAdmin from "@/components/Footers/FooterAdmin";
 import AutomationRow from "./AutomationRow";
 import {Automation} from "commons";
 import { getAutomations } from "@/services/AutomationService";
+import Toast from "@/components/Toast";
 
 export default function Automations() {
 
@@ -92,6 +93,7 @@ export default function Automations() {
           <FooterAdmin />
         </div>
       </div>
+      <Toast />
     </>
   );
 }

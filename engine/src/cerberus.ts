@@ -4,6 +4,7 @@ import usersRepository from "./repositories/usersRepository";
 import { swap } from "commons/services/uniswapService";
 import { sendMail } from "./services/mailService";
 import tradesRepository from "./repositories/tradesRepository";
+import { CerberusWSS } from "./wss";
 
 function evalCondition(automation: Automation, pool: Pool): boolean {
   const condition = automation.isOpened
@@ -19,7 +20,7 @@ function evalCondition(automation: Automation, pool: Pool): boolean {
   return result;
 }
 
-export default async (pool: Pool): Promise<void> => {
+export default async (pool: Pool, WSS: CerberusWSS): Promise<void> => {
   const automations = await automationsRepository.searchAutomations(pool.id);
   if (!automations || !automations.length) return;
 
@@ -66,6 +67,8 @@ export default async (pool: Pool): Promise<void> => {
           openPrice: swapResult.price,
         });
 
+      WSS.direct(automation.userId, { type: "success", trade });
+
       automation.isOpened = !automation.isOpened;
     } catch (err: any) {
       console.error(
@@ -73,6 +76,8 @@ export default async (pool: Pool): Promise<void> => {
       );
 
       if (err.code !== "NONCE_EXPIRED") automation.isActive = false;
+
+      WSS.direct(automation.userId, { type: "error", text: err.message });
 
       await sendMail(
         user.email,

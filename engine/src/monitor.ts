@@ -21,7 +21,7 @@ async function executionCycle() {
 
       bulkResult.push(poolResult);
 
-      cerberusExecution(poolResult);
+      cerberusExecution(poolResult, WSS);
 
       //console.log(`Price for ${poolResult.symbol} (${poolResult.fee / 10000}%) is ${Number(poolResult.price0).toFixed(3)}`);
     }
