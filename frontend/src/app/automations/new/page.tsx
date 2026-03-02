@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import AdminNavBar from "@/components/Navbars/AdminNavbar";
 import FooterAdmin from "@/components/Footers/FooterAdmin";
 import { Automation, ChainId, Condition, Exchange, Pool } from "commons";

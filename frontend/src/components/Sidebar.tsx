@@ -4,8 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
-import NotificationDropdown from "@/components/Dropdowns/NotificationDropdown.js";
-import UserDropdown from "@/components/Dropdowns/UserDropdown";
+import UserDropdown from "@/components/UserDropdown";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -42,7 +41,6 @@ export default function Sidebar() {
           {/* User */}
           <ul className="md:hidden items-center flex flex-wrap list-none">
             <li className="inline-block relative">
-              <NotificationDropdown />
             </li>
             <li className="inline-block relative">
               <UserDropdown />

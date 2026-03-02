@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 
 // components
 
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import AdminNavBar from "@/components/Navbars/AdminNavbar";
 import FooterAdmin from "@/components/Footers/FooterAdmin";
 import AutomationRow from "./AutomationRow";

@@ -81,6 +81,8 @@ async function updateAutomation(
       isOpened: automationData.isOpened,
       openCondition: automationData.openCondition,
       closeCondition: automationData.closeCondition,
+      tradeCount: automationData.tradeCount,
+      pnl: automationData.pnl,
     },
   });
 

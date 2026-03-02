@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 
 import { getUser, updateUser } from "@/services/UserService";
-import Sidebar from "@/components/Sidebar/Sidebar";
+import Sidebar from "@/components/Sidebar";
 import AdminNavBar from "@/components/Navbars/AdminNavbar";
 import FooterAdmin from "@/components/Footers/FooterAdmin";
 import { User } from "commons";

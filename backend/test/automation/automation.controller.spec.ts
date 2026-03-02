@@ -44,13 +44,11 @@ describe("AutomationController Tests", () => {
         expect(automations.length).toBeTruthy();
     })
 
-    /*
     it("Should get top automations", async () => {
         const automations = await automationController.getTopAutomations(authorization);
         expect(automations).toBeDefined();
         expect(automations.length).toBeTruthy();
     })
-    */
 
     it('Should add automation', async () => {
         const automationData = { ...activeAutomationMock } as AutomationDTO;

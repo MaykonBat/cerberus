@@ -1,6 +1,6 @@
 import axios from "axios";
 import ConfigBase from "../config/configBase";
-import { PoolData, TokenData } from "./uniswapTypes";
+import { PoolData, SwapData, TokenData } from "./uniswapTypes";
 import { User } from "../models/user";
 import { ethers } from "ethers";
 import { TransactionResponse } from "ethers";
@@ -106,8 +106,8 @@ export async function swap(
   user: User,
   automation: Automation,
   pool: Pool,
-): Promise<string> {
-  if (!user.privateKey) return Promise.resolve("0");
+): Promise<SwapData | null> {
+  if (!user.privateKey) return null;
 
   const provider = new ethers.JsonRpcProvider(ConfigBase.RPC_NODE);
   const signer = new ethers.Wallet(user.privateKey, provider);
@@ -123,12 +123,12 @@ export async function swap(
   const condition = automation.isOpened
     ? automation.closeCondition
     : automation.openCondition;
-  if (!condition) return Promise.resolve("0");
+  if (!condition) return null;
 
-  const [tokenIn, tokenOut] =
-    condition.field.indexOf("price0") !== -1
-      ? [token1Contract, token0Contract]
-      : [token0Contract, token1Contract];
+  const isPrice0Condition = condition.field.indexOf("price0") !== -1;
+  const [tokenIn, tokenOut] = isPrice0Condition
+    ? [token1Contract, token0Contract]
+    : [token0Contract, token1Contract];
 
   const amountIn = BigInt(automation.nextAmount);
 
@@ -148,9 +148,13 @@ export async function swap(
 
   console.log(params);
 
+  const nonce = await provider.getTransactionCount(user.address, "latest");
+  console.log("[COMMONS] Using nonce:", nonce);
+
   const tx: TransactionResponse = await routerContract.exactInputSingle(
     params,
     {
+      nonce,
       from: user.address,
       gasPrice: ethers.parseUnits("25", "gwei"),
       gasLimit: 250000,
@@ -174,5 +178,11 @@ export async function swap(
 
   console.log(`Swap Success! Tx Id: ${tx.hash}. Amount Out: ${amountOutWei}`);
 
-  return amountOutWei.toString();
+  return {
+    tokenIn: tokenIn.target.toString(),
+    tokenOut: tokenOut.target.toString(),
+    amountIn: amountIn.toString(),
+    amountOut: amountOutWei.toString(),
+    price: isPrice0Condition ? pool.price0 : pool.price1,
+  } as SwapData;
 }

@@ -96,7 +96,7 @@ export class PoolService {
     const topPools = [...top0Pools, ...top1Pools];
     const pools: Pool[] = topPools
       .sort((a, b) => b.topChange - a.topChange)
-      .slice(0, 5);
+      .slice(0, 10);
 
     return pools;
   }

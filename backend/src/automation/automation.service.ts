@@ -23,6 +23,14 @@ export class AutomationService {
     });
   }
 
+  async getTopAutomations(userId: string): Promise<Automation[]> {
+    return db.automations.findMany({
+      where: { userId },
+      take: 5,
+      orderBy: { pnl: 'desc' },
+    });
+  }
+
   async getActiveAutomations(userId: string): Promise<Automation[]> {
     return db.automations.findMany({
       where: { userId, isActive: true },
@@ -38,7 +46,7 @@ export class AutomationService {
         exchange: automation.exchange,
         network: automation.network,
         openCondition: automation.openCondition,
-        closeCondition: automation.closeCondition!, 
+        closeCondition: automation.closeCondition!,
         isActive: automation.isActive || false,
         isOpened: automation.isOpened || false,
         name: automation.name,

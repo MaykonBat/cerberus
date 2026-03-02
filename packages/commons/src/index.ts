@@ -1,5 +1,6 @@
 export { default as Automation } from "./models/automation";
 export * from "./models/automation";
+export { default as Trade } from "./models/trade";
 export * from "./models/chainId";
 export * from "./models/exchange";
 export * from "./models/plan";
