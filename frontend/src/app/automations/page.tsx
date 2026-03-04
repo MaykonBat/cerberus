@@ -75,7 +75,7 @@ export default function Automations() {
                     <tbody>
                       {
                         automations && automations.length
-                        ? automations.map(a => (<AutomationRow data={a} onUpdate={() => setReload(Date.now())} />))
+                        ? automations.map(a => (<AutomationRow key={a.id} data={a} onUpdate={() => setReload(Date.now())} />))
                         : (
                           <tr>
                             <td colSpan={4} className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4">

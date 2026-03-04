@@ -24,14 +24,3 @@ export function decrypt(encryptedHex: string): string {
     const decryptedBytes = aesCtr.decrypt(encryptedBytes);
     return aes.utils.utf8.fromBytes(decryptedBytes);
 }
-
-/*
-export async function sign(privateKey: string, message: string): Promise<string> {
-    const wallet = new ethers.Wallet(privateKey);
-    return wallet.signMessage(message);
-}
-
-export function verify(originalMessage: string, signature: string): string {
-    return ethers.verifyMessage(originalMessage, signature);
-}
-*/

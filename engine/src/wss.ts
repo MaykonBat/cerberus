@@ -65,16 +65,19 @@ export default (): CerberusWSS => {
     if (!req.url || !req.headers.origin || !corsValidation(req.headers.origin))
       throw new Error(`Cors Policy`);
 
-    const token = req.url.split("token=")[1];
-    if (!token) return;
+    const token = req.url.split("token=")[1]; 
+    if (!token) return; 
+    
+    const decoded = jwt.verify(token, Config.JWT_SECRET) as JWT; 
+    if (decoded && !wss.isConnected(decoded.userId)) { 
+      
+      ws.id = decoded.userId; 
+      ws.on("message", (data) => console.log(data)); 
+      ws.on("error", (err) => console.error(err)); 
+      console.log("es.onConnection: " + req.url); 
+    } 
 
-    const decoded = jwt.verify(token, Config.JWT_SECRET) as JWT;
-    if (decoded && !wss.isConnected(decoded.userId)) {
-      ws.id = decoded.userId;
-      ws.on("message", (data) => console.log(data));
-      ws.on("error", (err) => console.error(err));
-      console.log("es.onConnection: " + req.url);
-    }
+    console.log(`[WSS] Connected: ${decoded.userId}`);
   });
 
   console.log(`Cerberus WebSocket Server is Running.`);

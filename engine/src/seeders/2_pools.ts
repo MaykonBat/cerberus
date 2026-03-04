@@ -37,7 +37,9 @@ export class PoolsSeeder implements ISeeder {
                     token0: pool.token0.id,
                     token1: pool.token1.id,
                     price0: parseFloat(pool.token0Price),
-                    price1: parseFloat(pool.token1Price)                    
+                    price1: parseFloat(pool.token1Price),
+                    decimals0: parseInt(pool.token0.decimals),
+                    decimals1: parseInt(pool.token1.decimals)
                 } as Pool));
             }
 
